@@ -1,4 +1,4 @@
-# Lossless RDMA Fabric Configuration – RoCEv2
+# Lossless RDMA Fabric Configuration Lab
 
 ## Overview
 This document outlines the configuration steps and tuning parameters used to achieve a lossless RDMA fabric for training workloads using RoCEv2. The environment includes VXLAN VRFs, ECN, PFC, and benchmarking via `perftest`.
@@ -13,7 +13,7 @@ This document outlines the configuration steps and tuning parameters used to ach
 - Kubernetes: GPU nodes orchestrated by Cluster API and Talos Linux
 - Telemetry: Prometheus + custom `rocm-smi` exporter + `ethtool` counters
 
-![ROCEv2 Network Lab](images/diagram_basic.png)  
+![ROCEv2 Network Lab](images/diagram.png)  
 
 ## Key Tuning 
 
