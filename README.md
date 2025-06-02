@@ -51,3 +51,33 @@ echo 1 > /sys/module/mlx5_core/parameters/enable_vxlan_rdma
 
 - Configure switch overlay routes with vxlan interfaces
 - Ensure VLAN → VXLAN mappings preserve DSCP/CoS bits
+
+# Benchmarking
+
+### Tools:
+- perftest
+- ib_read_bw, ib_write_bw, ib_send_bw
+
+### Sample command:
+```bash
+ib_read_bw -d mlx5_0 -F -x 3 -n 1000000
+```
+
+### Target results:
+| Test         | Latency (us) | Bandwidth (Gbps) |
+|--------------|--------------|------------------|
+| ib_read_bw   | <5           | 90+              |
+| ib_send_bw   | <6           | 80+              |
+
+## Monitoring
+
+- Export `ethtool -S` counters for pause frames, PFC deadlock detection
+- `rocm-smi` exporter → Prometheus → Grafana dashboard for GPU saturation, PCIe errors
+- Loki/Alloy tail logs for drift detection in config (e.g., ECN disabled)
+
+## Lessons Learned
+
+- RoCEv2 with PFC enabled needs watchdogs to avoid fabric-wide head-of-line blocking.
+- ECN helps reduce latency under microbursts, but requires QoS domain alignment between NICs, OS, and switches.
+- Kubernetes pod-to-node binding should respect GPU PCI locality for minimizing cross-node RDMA chatter.
+
