@@ -13,6 +13,8 @@ This document outlines the configuration steps and tuning parameters used to ach
 - Kubernetes: GPU nodes orchestrated by Cluster API and Talos Linux
 - Telemetry: Prometheus + custom `rocm-smi` exporter + `ethtool` counters
 
+![ROCEv2 Network Lab](images/diagram_basic.png)  
+
 ## Key Tuning 
 
 ### 1. Priority Flow Control (PFC) – Per switch + NIC
